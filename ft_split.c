@@ -6,7 +6,7 @@
 /*   By: rnakai <rnakai@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 11:01:41 by rnakai            #+#    #+#             */
-/*   Updated: 2020/07/13 22:02:00 by rnakai           ###   ########.fr       */
+/*   Updated: 2020/07/14 12:34:24 by rnakai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,29 +123,27 @@ char		**ft_split(char const *str, char ch)
 	return (ret_db_ptr);
 }
 
-
-#include <stdio.h>
-int		main(void)
-{
-	// char str[] = "hello  my name is hoge ";
-	// char str[] = "hello  my  name i hogehgoegjasklfjeaijl;kj;jklfjalastIBDDS";
-	char str[] = "J4bGs se3QNymWjK 0wnuHeUDYJx z2qeFNkgYnICaB0di 2crs 2waS3O UijQE3LAcVoPyreRp EMjf2ASxyr5gvTD8 GqU07FxQjZKIB8";
-	// char str[] = "hello  my  name i ";
-	// char str[] = "    ";
-	// char str[] = "   hello  ";
-	// char str[] = "";
-	// char str[] = NULL;
-	// char str[] = "      split       this for   me  !       ";
-	// char str[] = "\0aaa\0bbb";
-	char ch = ' ';
-	// char ch = '\0';
-	char **result;
-	result = ft_split(str, ch);
-	for (int i = 0; result[i] != NULL; i++)
-	{
-		ft_putstr_fd(result[i], 1);
-		printf("\n");
-	}
-	return (0);
-}
-
+/*
+** #include <stdio.h>
+** int		main(void)
+** {
+** 	// char str[] = "hello  my name is hoge ";
+** 	// char str[] = "hello  my  name i ";
+** 	// char str[] = "    ";
+** 	// char str[] = "   hello  ";
+** 	// char str[] = "";
+** 	// char str[] = NULL;
+** 	// char str[] = "      split       this for   me  !       ";
+** 	// char str[] = "\0aaa\0bbb";
+** 	char ch = ' ';
+** 	// char ch = '\0';
+** 	char **result;
+** 	result = ft_split(str, ch);
+** 	for (int i = 0; result[i] != NULL; i++)
+** 	{
+** 		ft_putstr_fd(result[i], 1);
+** 		printf("\n");
+** 	}
+** 	return (0);
+** }
+*/
