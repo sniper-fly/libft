@@ -6,16 +6,12 @@
 /*   By: rnakai <rnakai@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 11:01:41 by rnakai            #+#    #+#             */
-/*   Updated: 2020/07/14 12:34:24 by rnakai           ###   ########.fr       */
+/*   Updated: 2020/08/05 16:57:08 by rnakai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-
-/*
-** count words always return int value, more than 1
-*/
 
 static int	count_words(char const *str, char ch)
 {
@@ -42,10 +38,10 @@ static int	count_words(char const *str, char ch)
 		}
 		idx++;
 	}
-	return (count + 1);
+	return (str[0] ? count + 1 : 0);
 }
 
-static int	skip_wd_or_delim(char *str, int idx, char ch)
+static int	return_head2tail_or_delim2head(char *str, int idx, char ch)
 {
 	if (str[idx] != ch)
 	{
@@ -82,13 +78,13 @@ static void	create_word_array(int words, char ch, char *str, char **db_ptr)
 	head = 0;
 	while (idx < words)
 	{
-		tail = skip_wd_or_delim(str, head, ch);
+		tail = return_head2tail_or_delim2head(str, head, ch);
 		if (!(db_ptr[idx] = ft_substr(str, head, tail - head + 1)))
 		{
 			all_free(db_ptr, idx);
 			return ;
 		}
-		head = skip_wd_or_delim(str, tail + 1, ch);
+		head = return_head2tail_or_delim2head(str, tail + 1, ch);
 		idx++;
 	}
 	db_ptr[idx] = NULL;
@@ -96,30 +92,28 @@ static void	create_word_array(int words, char ch, char *str, char **db_ptr)
 
 char		**ft_split(char const *str, char ch)
 {
-	char	*ptr;
+	char	*trimmed_str;
 	int		words;
 	char	**ret_db_ptr;
-	char	divider_set[2];
+	char	divider[2];
 
-	ft_strlcpy(divider_set, &ch, 2);
-	if (!(ptr = ft_strtrim(str, divider_set)))
+	ft_strlcpy(divider, &ch, 2);
+	if (!(trimmed_str = ft_strtrim(str, divider)))
 		return (NULL);
-	words = count_words(ptr, ch);
-	if (ptr[0] == '\0')
-		words = 0;
+	words = count_words(trimmed_str, ch);
 	if (!(ret_db_ptr = (char **)malloc(sizeof(char *) * (words + 1))))
 	{
-		free(ptr);
+		free(trimmed_str);
 		return (NULL);
 	}
 	if (words == 0)
 	{
 		ret_db_ptr[0] = NULL;
-		free(ptr);
+		free(trimmed_str);
 		return (ret_db_ptr);
 	}
-	create_word_array(words, ch, ptr, ret_db_ptr);
-	free(ptr);
+	create_word_array(words, ch, trimmed_str, ret_db_ptr);
+	free(trimmed_str);
 	return (ret_db_ptr);
 }
 
@@ -129,7 +123,7 @@ char		**ft_split(char const *str, char ch)
 ** {
 ** 	// char str[] = "hello  my name is hoge ";
 ** 	// char str[] = "hello  my  name i ";
-** 	// char str[] = "    ";
+** 	char str[] = "    ";
 ** 	// char str[] = "   hello  ";
 ** 	// char str[] = "";
 ** 	// char str[] = NULL;
